@@ -1,0 +1,78 @@
+##Measures##
+
+Customer Count = DISTINCTCOUNT(Customers[Customer ID])
+
+Total Products = COUNTROWS('Product Details')
+
+No of Returns = COUNTROWS(Returns)
+
+Return Rate/ Products Sold = Divide([No of Returns],[Total Products])
+
+Return Rate/Orders = DIVIDE([No of Returns],[Total Orders])
+
+Avg Discount = AVERAGE(Sales[Discount])
+
+Avg Order Lead Time = AVERAGE(Sales[Order Lead Time])
+
+Avg Order Value = DIVIDE([Total Sales], [Total Orders])
+
+Avg Profit = AVERAGE(Sales[Profit])
+
+Avg Profit/Order = DIVIDE([Total Profit],[Total Orders])
+
+Avg Qty/Order = [Total Quantity Sold]/[Total Orders]
+
+Avg Quantity = AVERAGE(Sales[Sales])
+
+Avg Sales = AVERAGE(Sales[Sales])
+
+Avg Shipping Cost = AVERAGE(Sales[Shipping Cost])
+
+Avg Shipping Cost/Order = [Total Shipping Cost]/[Total Orders]
+
+Avg Value/qty = [Total Sales]/SUM(Sales[Quantity])
+
+CustomerPenetration = DIVIDE(DISTINCTCOUNT(Sales[Customer ID]),CALCULATE(DISTINCTCOUNT(Sales[Customer ID]),all(Sales[Country])))
+
+Profit Margin = DIVIDE([Total Profit],[Total Sales])
+
+ProfitPerUnit = DIVIDE([Total Profit], [Total Quantity Sold])
+
+Sales per Customer = DIVIDE([Total Sales], DISTINCTCOUNT(Sales[Customer ID]))
+
+Total Orders = DISTINCTCOUNT(Sales[Order ID])
+
+Total Profit = Sum(Sales[Profit])
+
+Total Quantity Sold = Sum(Sales[Quantity])
+
+Total Sales = Sum(Sales[Sales])
+
+Total Shipping Cost = sum(Sales[Shipping Cost])
+
+YOY Profit = CALCULATE([Total Profit], SAMEPERIODLASTYEAR('Calender'[Date]))
+
+YOY Profit Growth % = DIVIDE([Total Profit] - [YOY Profit], [YOY Profit])
+
+YOY Sales = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Calender'[Date]))
+
+YOY Sales Growth % = DIVIDE([Total Sales] - [YOY Sales], [YOY Sales])
+
+Return Order = CALCULATE([Total Orders],Sales[IsReturned] = "Yes")
+
+Return Sales = CALCULATE([Total Sales],Sales[IsReturned] = "Yes")
+
+Returned Profit = CALCULATE(SUM(Sales[Profit]), Sales[IsReturned] = "Yes")
+
+
+
+##Columns##
+
+IsReturned = IF(NOT(ISBLANK(LOOKUPVALUE(Returns[Returned], Returns[Order ID], Sales[Order ID]))),"Yes","No")
+
+Discount Slab = IF('Sales'[Discount] <= .10, "0%–10%", IF('Sales'[Discount] <= .2, "11%–20%", IF('Sales'[Discount] <= .3, "21%–30%", IF('Sales'[Discount] <= .4, "31%–40%", IF('Sales'[Discount] <= .5, "41%–50%", IF('Sales'[Discount] <= .6, "51%–60%", IF('Sales'[Discount] <= .7, "61%–70%", IF('Sales'[Discount] <= .8, "71%–80%", IF('Sales'[Discount] <= .9, "81%–90%", "Above 90%")))))))))
+
+Order Lead Time = DATEDIFF(Sales[Order Date], Sales[Ship Date],DAY)
+
+
+
